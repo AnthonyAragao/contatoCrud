@@ -47,7 +47,7 @@
 
                     <div class="input-group">
                         <label for="contato">Contato:</label>
-                        <input type="text" id="contato" name="contato" required maxlength="9" minlength="9"
+                        <input type="text" id="contato" name="contato" required maxlength="9" minlength="9" pattern="[0-9]{9}"
                             {{ isset($form) ? $form : null }}  placeholder="Insira o telefone"
                             value="{{ isset($contato) ? $contato->contato : old('contato') }}">
                     </div>
@@ -58,6 +58,12 @@
                             <a href="{{route('contatos.edit', Crypt::encrypt([$contato->id]) )}}" class="btn btn-success">
                                 Modificar
                             </a>
+
+                            <form action="{{route('contatos.destroy', Crypt::encrypt([$contato->id]))}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
                         @else
                             <button type="submit" class="btn btn-success">Salvar</button>
                         @endif
@@ -73,14 +79,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if (session('success'))
+        <script>
+            Swal.fire({
+                title: 'Sucesso!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                timer: 3000, // Tempo em milissegundos (3 segundos)
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+
     <script>
-        Swal.fire({
-            title: 'Sucesso!',
-            text: '{{ session('success') }}',
-            icon: 'success',
-            timer: 3000, // Tempo em milissegundos (3 segundos)
-            showConfirmButton: false
+        $(document).ready(function() {
+            $('#contato').mask('000000000');
         });
     </script>
-    @endif
 @endsection
