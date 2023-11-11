@@ -1,0 +1,41 @@
+/* Config Gerais */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+    background-image: url('../images/img01.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.container div{
+    width: 1000px;
+}
+
+.add-contact{
+    margin-top:60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-contact h2{
+    color: white;
+}
+
+.add-contact a{
+    height: 40px;
+}
+
+.btns{
+    display: flex;
+    gap:5px;
+}
