@@ -8,6 +8,21 @@
     <main>
         <div class="container">
             <div>
+                <div class="session-auth">
+                    @auth()
+                        <a href="{{route('auth.logout')}}">
+                            <button class="btn btn-success">Logout</button>
+                        </a>
+                    @else
+                        <a href="{{route('login')}}">
+                            <button class="btn btn-success">Fazer login</button>
+                        </a>
+
+                        <p class="information">Pare realizar operações CRUD, é necessário estar autenticado. Para se autenticar, insira o e-mail e senha presentes nas seeder Users.</p>
+                    @endauth
+                </div>
+
+
                 <div class="add-contact">
                     <h2>Contatos</h2>
                     <a href="{{route('contatos.create')}}" class="btn btn-outline-success">
@@ -39,10 +54,10 @@
                                         <button class="btn btn-warning">Editar</button>
                                     </a>
 
-                                    <form action="{{ route('contatos.destroy', [Crypt::encrypt($contato->id)]) }}" method="POST">
+                                    <form action="{{route('contatos.destroy', Crypt::encrypt([$contato->id]))}}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="excluirContato()">Excluir</button>
+                                        <button type="submit" class="btn btn-danger">Excluir</button>
                                     </form>
                                 </td>
                             </tr>
@@ -58,26 +73,6 @@
 
 @section('insert_script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function excluirContato() {
-        event.preventDefault();
-
-        Swal.fire({
-            title: 'Você tem certeza?',
-            text: 'Esta ação é irreversível!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sim, excluir!',
-            cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.querySelector('form').submit();
-                }
-            });
-        }
-    </script>
 
     @if (session('success'))
         <script>

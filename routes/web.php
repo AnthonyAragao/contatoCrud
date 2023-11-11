@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,14 @@ Route::get('/', function () {
     return redirect()->route('contatos.index');
 });
 
-Route::resource('contatos', ContatoController::class);
+Route::get('/contatos', [ContatoController::class, 'index'])->name('contatos.index');
+
+// Rotas protegidas por autenticação
+Route::middleware(['auth'])->group(function () {
+    Route::resource('contatos', ContatoController::class)->except('index');
+});
+
+Route::post('login', [LoginController::class, 'auth'])->name('auth.login');
+Route::get('login', [LoginController::class, 'create'])->name('login');
+Route::get('logout', [LoginController::class, 'logout'])->name('auth.logout');
+

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('contatos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('contato');
+            $table->string('contato')->unique();
             $table->string('email')->unique();
             $table->timestamps();
         });

@@ -104,7 +104,7 @@ class ContatoController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id){
-        $contato = $this->contatos->find(Crypt::decrypt($id));
+        $contato = $this->contatos->find(Crypt::decrypt($id))->first();
         $contato->delete();
 
         return redirect()->route('contatos.index');

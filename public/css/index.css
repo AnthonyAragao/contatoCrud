@@ -21,6 +21,22 @@ body{
     width: 1000px;
 }
 
+.session-auth{
+    margin-top:20px;
+}
+
+.information{
+    background-color: rgb(247, 247, 41);
+    padding:5px;
+    border-radius:4px;
+    margin-top:5px;
+}
+
+.session-auth a{
+    text-decoration: none;
+    color: black;
+}
+
 .add-contact{
     margin-top:60px;
     display: flex;
